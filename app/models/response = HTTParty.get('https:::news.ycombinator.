@@ -1,0 +1,39 @@
+response = HTTParty.get('https://news.ycombinator.com/')
+response.body
+
+content = Nokogiri::HTML(response.body)
+
+
+
+response = HTTParty.get('https://news.ycombinator.com/')
+response.body
+content = Nokogiri::HTML(response.body)
+links = content.css('a.storylink').map { |link| link }
+
+links.each_with_index do |link, idx|
+  Link.create(content: link.content, url: link['href'], page_rank: idx + 1)
+end
+
+links.each_with_index do |link, idx|
+puts idx + 1
+end
+
+
+
+
+
+
+
+links.first.children.first.content
+
+
+links = noko.css('a.storylink').map { |link| link['href'] }
+
+
+
+
+
+content = page.at('.content')
+content.css('.col').each do |col|
+    puts col.at('h5').text
+end
