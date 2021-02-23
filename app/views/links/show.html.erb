@@ -9,6 +9,67 @@
   <strong>Url:</strong>
   <%= @link.url %>
 </p>
-
+      <div id = "container" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+      <script language = "JavaScript">
+         $(document).ready(function() {  
+            var chart = {
+               type: 'spline'      
+            }; 
+            var title = {
+               text: 'Hacker news Page rank over time'   
+            };
+            var subtitle = {
+               text: 'fdsafdsa'
+            };
+            var xAxis = {
+               type: 'datetime',
+               dateTimeLabelFormats: { // don't display the dummy year
+                  month: '%e. %b',
+                  year: '%b'
+               },
+               title: {
+                  text: 'Date'
+               }
+            };
+            var yAxis = {
+               title: {
+                  text: 'Snow depth (m)'
+               },
+               min: 0
+            };
+            var tooltip = {
+               headerFormat: '<b>{series.name}</b><br>',
+               pointFormat: '{point.x:%e. %b}: {point.y:.2f} m'
+            };
+            var plotOptions = {
+               spline: {
+                  marker: {
+                     enabled: true
+                  }
+               }
+            };
+            var series = [
+               {
+                  name: 'Day of Testing',
+                     // Define the data points. All series have a dummy year
+                     // of 1970/71 in order to be compared on the same x axis.
+                     // Note that in JavaScript, months start at 0 for January,
+                     // 1 for February etc.
+                  data: <%= @chart_data %>
+               }
+            ];
+            
+            var json = {};
+            json.chart = chart;
+            json.title = title;
+            json.subtitle = subtitle;
+            json.tooltip = tooltip;
+            json.xAxis = xAxis;
+            json.yAxis = yAxis;  
+            json.series = series;
+            json.plotOptions = plotOptions;
+            $('#container').highcharts(json);
+         });
+      </script>
 <%= link_to 'Edit', edit_link_path(@link) %> |
 <%= link_to 'Back', links_path %>
