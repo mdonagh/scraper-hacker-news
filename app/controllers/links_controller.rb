@@ -8,7 +8,7 @@ class LinksController < ApplicationController
 
   # GET /links/1 or /links/1.json
   def show
-    @chart_data = link.ranks.map{|rank| [rank.created_at.to_i, rank.page_rank] }
+   # @chart_data = @link.ranks.map{|rank| [rank.created_at.to_i, rank.page_rank] }
   end
 
   # GET /links/new
