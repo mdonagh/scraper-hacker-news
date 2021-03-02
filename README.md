@@ -17,3 +17,34 @@ Also, the database architecture is kind of dumb - should have one table for link
 Data visualization is relatively easy, I think this is the core of the application and anyone who wants to do this should be able to use this+scaffolding+a simple data visualization library to complete the assignment.
 
 Let me know if you have any questions and thanks for your interest. I think this is a key skill as Rails developers and web scraping like this - using Nokogiri to collect info from a page with CSS selectors - is applicable to a wide array of projects.
+
+Example code
+
+For the period measured, which link stayed on the front page the longest?
+```
+max_time_distance = 0
+longest_lived_link = nil
+Link.find_each do |link|
+  first_appearance = link.ranks.minimum('created_at')
+  last_appearance = link.ranks.maximum('created_at')
+  time_distance =  last_appearance.to_i - first_appearance.to_i
+  if time_distance > max_time_distance
+    max_time_distance = time_distance 
+    longest_lived_link = link
+  end
+end
+
+puts longest_lived_link.inspect
+
+puts "stayed on the page for #{max_time_distance / 60.0} minutes"
+
+
+Link.find_each do |link|
+  first_appearance = link.ranks.minimum('created_at')
+  last_appearance = link.ranks.maximum('created_at')
+  time_distance =  last_appearance.to_i - first_appearance.to_i
+  puts link.url
+  puts link.content
+  puts "stayed on the page for #{(time_distance / 60.0).round} minutes"
+end
+```
